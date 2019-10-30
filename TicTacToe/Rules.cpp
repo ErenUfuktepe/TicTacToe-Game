@@ -620,6 +620,19 @@ int Rules::special_case()
 	int button = 0;
 	int flag = 0;
 
+	if (game[1] == "X" && game[8] == "X") {
+		return 7;
+	}
+	if (game[2] == "X" && game[9] == "X") {
+		return 3;
+	}
+	if (game[3] == "X" && game[4] == "X") {
+		return 1;
+	}
+	if (game[6] == "X" && game[7] == "X") {
+		return 9;
+	}
+
 	for (int index = 1; index < 10; index = index + 4) {
 		if (game[index] == "O") {
 			button = index;
