@@ -1,7 +1,9 @@
 #pragma once
-#include "Rules.h"
+#include "Referee.h"
+#include <iostream>
+#include <string>
 
-
+using namespace std;
 using namespace System;
 using namespace System::ComponentModel;
 using namespace System::Collections;
@@ -12,51 +14,39 @@ using namespace System::Drawing;
 
 public ref class MainWindow : public System::Windows::Forms::Form
 {
-public:
-	Player *player1;
-	Player* player2;
-	Rules* rules;
-private: System::Windows::Forms::Label^ label1;
-private: System::Windows::Forms::Button^ button10;
-private: System::Windows::Forms::Button^ button11;
-private: System::Windows::Forms::Button^ button12;
-public:
-	Board* board;
+	private: System::Windows::Forms::Label^ label1;
 
-public:
-	MainWindow(void)
-	{
-		player1 = new Player("X",1,0);
-		player2 = new Player("O",0,0);
-		board = new Board(player1, player2);
-		rules = new Rules(board);
-		
-		InitializeComponent();
-	}
+	private: System::Windows::Forms::Button^ button1;
+	private: System::Windows::Forms::Button^ button2;
+	private: System::Windows::Forms::Button^ button3;
+	private: System::Windows::Forms::Button^ button4;
+	private: System::Windows::Forms::Button^ button5;
+	private: System::Windows::Forms::Button^ button6;
+	private: System::Windows::Forms::Button^ button7;
+	private: System::Windows::Forms::Button^ button8;
+	private: System::Windows::Forms::Button^ button9;
+	private: System::Windows::Forms::Button^ button10;
+	private: System::Windows::Forms::Button^ button11;
+	private: System::Windows::Forms::Button^ button12;
 
-protected:
+	private: Referee* referee = new Referee(0);
 
-	~MainWindow()
-	{
-		if (components)
+	public:
+		MainWindow(void)
 		{
-			delete components;
+			InitializeComponent();
 		}
-	}
-private: System::Windows::Forms::Button^ button1;
-private: System::Windows::Forms::Button^ button2;
-private: System::Windows::Forms::Button^ button3;
-private: System::Windows::Forms::Button^ button4;
-private: System::Windows::Forms::Button^ button5;
-private: System::Windows::Forms::Button^ button6;
-private: System::Windows::Forms::Button^ button7;
-private: System::Windows::Forms::Button^ button8;
-private: System::Windows::Forms::Button^ button9;
-protected:
 
-private:
-		
-	System::ComponentModel::Container ^components;
+	protected:
+		~MainWindow()
+		{
+			if (components)
+			{
+				delete components;
+			}
+		}
+
+	private: System::ComponentModel::Container ^components;
 
 #pragma region Windows Form Designer generated code
 		
@@ -71,10 +61,11 @@ private:
 		this->button7 = (gcnew System::Windows::Forms::Button());
 		this->button8 = (gcnew System::Windows::Forms::Button());
 		this->button9 = (gcnew System::Windows::Forms::Button());
-		this->label1 = (gcnew System::Windows::Forms::Label());
 		this->button10 = (gcnew System::Windows::Forms::Button());
 		this->button11 = (gcnew System::Windows::Forms::Button());
 		this->button12 = (gcnew System::Windows::Forms::Button());
+
+		this->label1 = (gcnew System::Windows::Forms::Label());
 		this->SuspendLayout();
 		// 
 		// button1
@@ -84,6 +75,7 @@ private:
 		this->button1->Name = L"button1";
 		this->button1->Size = System::Drawing::Size(100, 87);
 		this->button1->TabIndex = 0;
+		this->button10->Text = L"  ";
 		this->button1->UseVisualStyleBackColor = true;
 		this->button1->Click += gcnew System::EventHandler(this, &MainWindow::button1_Click);
 		// 
@@ -167,15 +159,6 @@ private:
 		this->button9->UseVisualStyleBackColor = true;
 		this->button9->Click += gcnew System::EventHandler(this, &MainWindow::button9_Click);
 		// 
-		// label1
-		// 
-		this->label1->AutoSize = true;
-		this->label1->Location = System::Drawing::Point(321, 428);
-		this->label1->Name = L"label1";
-		this->label1->Size = System::Drawing::Size(0, 17);
-		this->label1->TabIndex = 9;
-		this->label1->Click += gcnew System::EventHandler(this, &MainWindow::label1_Click);
-		// 
 		// button10
 		// 
 		this->button10->Location = System::Drawing::Point(577, 428);
@@ -206,24 +189,34 @@ private:
 		this->button12->UseVisualStyleBackColor = true;
 		this->button12->Click += gcnew System::EventHandler(this, &MainWindow::button12_Click);
 		// 
+		// label1
+		// 
+		this->label1->AutoSize = true;
+		this->label1->Location = System::Drawing::Point(321, 428);
+		this->label1->Name = L"label1";
+		this->label1->Size = System::Drawing::Size(0, 17);
+		this->label1->TabIndex = 9;
+		this->label1->Click += gcnew System::EventHandler(this, &MainWindow::label1_Click);
+		// 
 		// MainWindow
 		// 
 		this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 		this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 		this->ClientSize = System::Drawing::Size(703, 500);
-		this->Controls->Add(this->button12);
-		this->Controls->Add(this->button11);
-		this->Controls->Add(this->button10);
-		this->Controls->Add(this->label1);
-		this->Controls->Add(this->button9);
-		this->Controls->Add(this->button8);
-		this->Controls->Add(this->button7);
-		this->Controls->Add(this->button6);
-		this->Controls->Add(this->button5);
-		this->Controls->Add(this->button4);
-		this->Controls->Add(this->button3);
-		this->Controls->Add(this->button2);
 		this->Controls->Add(this->button1);
+		this->Controls->Add(this->button2);
+		this->Controls->Add(this->button3);
+		this->Controls->Add(this->button4);
+		this->Controls->Add(this->button5);
+		this->Controls->Add(this->button6);
+		this->Controls->Add(this->button7);
+		this->Controls->Add(this->button8);
+		this->Controls->Add(this->button9);
+		this->Controls->Add(this->button10);
+		this->Controls->Add(this->button11);
+		this->Controls->Add(this->button12);
+
+		this->Controls->Add(this->label1);
 		this->Margin = System::Windows::Forms::Padding(4);
 		this->Name = L"MainWindow";
 		this->Text = L"Tic Tac Toe";
@@ -233,7 +226,129 @@ private:
 	}
 	#pragma endregion
 
-	private: void disable_buttons() {
+	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) 
+	{
+		this->button1->Text = button_clik_action(0,0);
+		this->button1->Enabled = false;
+	}
+	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) 
+	{
+		this->button2->Text = button_clik_action(0,1);
+		this->button2->Enabled = false;
+	}
+	private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) 
+	{
+		this->button3->Text = button_clik_action(0,2);
+		this->button3->Enabled = false;
+	}
+	private: System::Void button4_Click(System::Object^ sender, System::EventArgs^ e) 
+	{
+		this->button4->Text = button_clik_action(1,0);
+		this->button4->Enabled = false;
+	}
+	private: System::Void button5_Click(System::Object^ sender, System::EventArgs^ e) 
+	{
+		this->button5->Text = button_clik_action(1,1);
+		this->button5->Enabled = false;
+	}
+	private: System::Void button6_Click(System::Object^ sender, System::EventArgs^ e) 
+	{
+		this->button6->Text = button_clik_action(1,2);
+		this->button6->Enabled = false;
+	}
+	private: System::Void button7_Click(System::Object^ sender, System::EventArgs^ e) 
+	{
+		this->button7->Text = button_clik_action(2,0);
+		this->button7->Enabled = false;
+	}
+	private: System::Void button8_Click(System::Object^ sender, System::EventArgs^ e) 
+	{
+		this->button8->Text = button_clik_action(2,1);
+		this->button8->Enabled = false;
+	}
+	private: System::Void button9_Click(System::Object^ sender, System::EventArgs^ e) 
+	{
+		this->button9->Text = button_clik_action(2,2);
+		this->button9->Enabled = false;
+	}
+	private: System::Void button10_Click(System::Object^ sender, System::EventArgs^ e) 
+	{
+		this->referee->reset_board();
+		reset_game();
+	}
+	private: System::Void button11_Click(System::Object^ sender, System::EventArgs^ e) 
+	{
+		this->referee->reset_board();
+		this->referee = new Referee(0);
+		reset_game();
+	}
+	private: System::Void button12_Click(System::Object^ sender, System::EventArgs^ e) 
+	{
+		this->referee->reset_board();
+		this->referee = new Referee(1);
+		reset_game();
+	}
+	private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) 
+	{
+	}
+
+	private: void reset_game()
+	{
+		this->button1->Text = L"";
+		this->button2->Text = L"";
+		this->button3->Text = L"";
+		this->button4->Text = L"";
+		this->button5->Text = L"";
+		this->button6->Text = L"";
+		this->button7->Text = L"";
+		this->button8->Text = L"";
+		this->button9->Text = L"";
+
+		this->button1->Enabled = true;
+		this->button2->Enabled = true;
+		this->button3->Enabled = true;
+		this->button4->Enabled = true;
+		this->button5->Enabled = true;
+		this->button6->Enabled = true;
+		this->button7->Enabled = true;
+		this->button8->Enabled = true;
+		this->button9->Enabled = true;
+
+		this->label1->Text = L"";
+	}
+
+	private: String^ button_clik_action(int row, int column)
+	{
+		string *result = this->referee->make_move(row, column);
+		String^ button_symbol = gcnew String(result[0].c_str());
+		if(result[1].find("Win") != string::npos || result[1].find("Draw!") != string::npos)
+		{
+			String^ label = gcnew String(result[1].c_str());
+			this->label1->Text = label;
+			finish_game();
+		}
+		if (!result[2].empty())
+		{
+			string x ,y; 
+			x = result[2][0];
+			y = result[2][1];
+			cout << result[2] << endl;
+			int row = std::stoi(x);
+			int column = std::stoi(y);
+			string* check = this->referee->make_move(row, column);
+			if (check[1].find("Win") != string::npos || check[1].find("Draw!") != string::npos)
+			{
+				String^ label = gcnew String(check[1].c_str());
+				this->label1->Text = label;
+				finish_game();
+			}
+			AI_button_action(result[2]);
+		}
+		return button_symbol;
+	}
+
+	private: void finish_game()
+	{
 		this->button1->Enabled = false;
 		this->button2->Enabled = false;
 		this->button3->Enabled = false;
@@ -245,318 +360,54 @@ private:
 		this->button9->Enabled = false;
 	}
 
-	private :
-		void disable_button_for_computer(int button) {
-			if (button == 1) {
-				this->button1->Text = "O";
-				this->button1->Enabled = false;
-			}
-			else if (button == 2) {
-				this->button2->Text = "O";
-				this->button2->Enabled = false;
-			}
-			else if (button == 3) {
-				this->button3->Text = "O";
-				this->button3->Enabled = false;
-			}
-			else if (button == 4) {
-				this->button4->Text = "O";
-				this->button4->Enabled = false;
-			}
-			else if (button == 5) {
-				this->button5->Text = "O";
-				this->button5->Enabled = false;
-			}
-			else if (button == 6) {
-				this->button6->Text = "O";
-				this->button6->Enabled = false;
-			}
-			else if (button == 7) {
-				this->button7->Text = "O";
-				this->button7->Enabled = false;
-			}
-			else if (button == 8) {
-				this->button8->Text = "O";
-				this->button8->Enabled = false;
-			}
-			else if (button == 9) {
-				this->button9->Text = "O";
-				this->button9->Enabled = false;
-			}
-		}
-
-		int check_game_result(int result) {
-			if (result == 1) {
-				this->label1->Text = "Player 1 win.";
-				disable_buttons();
-				return 1;
-			}
-			else if (result == 2) {
-				this->label1->Text = "Player 2 win.";
-				disable_buttons();
-				return 2;
-			}
-			if (rules->is_finish()) {
-				this->label1->Text = "Draw.";
-				return 0;
-			}
-			return -1;
-		}
-
-
-	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (rules->move_turn(1) == 1) {
-			this->button1->Text = L"X";
-			this->button1->Enabled = false;
-
-			if (player2->get_is_computer() && check_game_result(rules->check_game_result()) == -1) {
-				int button = rules->computer_move();
-				rules->move_turn(button);
-				disable_button_for_computer(button);
-			}
-		}
-		else {
+	private: void AI_button_action(string move)
+	{
+		if (move == "00") 
+		{
 			this->button1->Text = L"O";
 			this->button1->Enabled = false;
 		}
-		check_game_result(rules->check_game_result());
-	}
-	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (rules->move_turn(2) == 1) {
-			this->button2->Text = L"X";
-			this->button2->Enabled = false;
-	
-			if (player2->get_is_computer() && check_game_result(rules->check_game_result()) == -1) {
-				int button = rules->computer_move();
-				rules->move_turn(button);
-				disable_button_for_computer(button);
-			}
-		}
-		else {
+		if (move == "01")
+		{
 			this->button2->Text = L"O";
 			this->button2->Enabled = false;
 		}
-
-		check_game_result(rules->check_game_result());
-	}
-	private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (rules->move_turn(3) == 1) {
-			this->button3->Text = L"X";
-			this->button3->Enabled = false;
-
-			if (player2->get_is_computer() && check_game_result(rules->check_game_result()) == -1) {
-				int button = rules->computer_move();
-				rules->move_turn(button);
-				disable_button_for_computer(button);
-			}
-		}
-		else {
+		if (move == "02")
+		{
 			this->button3->Text = L"O";
 			this->button3->Enabled = false;
-		
-			if (rules->check_game_result() == 2) {
-				this->label1->Text = "Player 2 win.";
-				disable_buttons();
-			}
 		}
-
-		check_game_result(rules->check_game_result());
-	}
-	private: System::Void button4_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (rules->move_turn(4) == 1) {
-			this->button4->Text = L"X";
-			this->button4->Enabled = false;
-
-			if (player2->get_is_computer() && check_game_result(rules->check_game_result()) == -1) {
-				int button = rules->computer_move();
-				rules->move_turn(button);
-				disable_button_for_computer(button);
-			}
-		}
-		else {
+		if (move == "10")
+		{
 			this->button4->Text = L"O";
 			this->button4->Enabled = false;
 		}
-
-		check_game_result(rules->check_game_result());
-	}
-	private: System::Void button5_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (rules->move_turn(5) == 1) {
-			this->button5->Text = L"X";
-			this->button5->Enabled = false;
-
-			if (player2->get_is_computer() && check_game_result(rules->check_game_result()) == -1) {
-				int button = rules->computer_move();
-				rules->move_turn(button);
-				disable_button_for_computer(button);
-			}
-		}
-		else {
+		if (move == "11")
+		{
 			this->button5->Text = L"O";
 			this->button5->Enabled = false;
 		}
-
-		check_game_result(rules->check_game_result());
-	}
-	private: System::Void button6_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (rules->move_turn(6) == 1) {
-			this->button6->Text = L"X";
-			this->button6->Enabled = false;
-
-			if (player2->get_is_computer() && check_game_result(rules->check_game_result()) == -1) {
-				int button = rules->computer_move();
-				rules->move_turn(button);
-				disable_button_for_computer(button);
-			}
-		}
-		else {
+		if (move == "12")
+		{
 			this->button6->Text = L"O";
 			this->button6->Enabled = false;
 		}
-
-		check_game_result(rules->check_game_result());
-	}
-	private: System::Void button7_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (rules->move_turn(7) == 1) {
-			this->button7->Text = L"X";
-			this->button7->Enabled = false;
-
-			if (player2->get_is_computer() && check_game_result(rules->check_game_result()) == -1) {
-				int button = rules->computer_move();
-				rules->move_turn(button);
-				disable_button_for_computer(button);
-			}
-		}
-		else {
+		if (move == "20")
+		{
 			this->button7->Text = L"O";
 			this->button7->Enabled = false;
 		}
-
-		check_game_result(rules->check_game_result());
-	}
-	private: System::Void button8_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (rules->move_turn(8) == 1) {
-			this->button8->Text = L"X";
-			this->button8->Enabled = false;
-			
-			if (player2->get_is_computer() && check_game_result(rules->check_game_result()) == -1) {
-				int button = rules->computer_move();
-				rules->move_turn(button);
-				disable_button_for_computer(button);
-			}
-		}
-		else {
+		if (move == "21")
+		{
 			this->button8->Text = L"O";
 			this->button8->Enabled = false;
 		}
-
-		check_game_result(rules->check_game_result());
-	}
-	private: System::Void button9_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (rules->move_turn(9) == 1) {
-			this->button9->Text = L"X";
-			this->button9->Enabled = false;
-
-			if (player2->get_is_computer() && check_game_result(rules->check_game_result()) == -1) {
-				int button = rules->computer_move();
-				rules->move_turn(button);
-				disable_button_for_computer(button);
-			}
-		}
-		else {
+		if (move == "22")
+		{
 			this->button9->Text = L"O";
 			this->button9->Enabled = false;
 		}
-		
-		check_game_result(rules->check_game_result());
-	}
-	
-	private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
 	}
 
-	private: System::Void button10_Click(System::Object^ sender, System::EventArgs^ e) {
-		this->label1->Text = L"";
-		
-		this->button1->Enabled = true;
-		this->button2->Enabled = true;
-		this->button3->Enabled = true;
-		this->button4->Enabled = true;
-		this->button5->Enabled = true;
-		this->button6->Enabled = true;
-		this->button7->Enabled = true;
-		this->button8->Enabled = true;
-		this->button9->Enabled = true;
-
-		player1 = new Player("X", 1, player1->get_is_computer());
-		player2 = new Player("O", 0, player2->get_is_computer());
-		board = new Board(player1,player2);
-		rules = new Rules(board);
-
-		this->button2->Text = L"";
-		this->button3->Text = L"";
-		this->button1->Text = L"";
-		this->button4->Text = L"";
-		this->button5->Text = L"";
-		this->button6->Text = L"";
-		this->button9->Text = L"";
-		this->button7->Text = L"";
-		this->button8->Text = L"";
-	}
-	private: System::Void button11_Click(System::Object^ sender, System::EventArgs^ e) {
-		this->label1->Text = L"";
-
-		this->button1->Enabled = true;
-		this->button2->Enabled = true;
-		this->button3->Enabled = true;
-		this->button4->Enabled = true;
-		this->button5->Enabled = true;
-		this->button6->Enabled = true;
-		this->button7->Enabled = true;
-		this->button8->Enabled = true;
-		this->button9->Enabled = true;
-
-		player1 = new Player("X", 1, 0);
-		player2 = new Player("O", 0, 0);
-		board = new Board(player1, player2);
-		rules = new Rules(board);
-
-		this->button2->Text = L"";
-		this->button3->Text = L"";
-		this->button1->Text = L"";
-		this->button4->Text = L"";
-		this->button5->Text = L"";
-		this->button6->Text = L"";
-		this->button9->Text = L"";
-		this->button7->Text = L"";
-		this->button8->Text = L"";
-	}
-	private: System::Void button12_Click(System::Object^ sender, System::EventArgs^ e) {
-		this->label1->Text = L"";
-
-		this->button1->Enabled = true;
-		this->button2->Enabled = true;
-		this->button3->Enabled = true;
-		this->button4->Enabled = true;
-		this->button5->Enabled = true;
-		this->button6->Enabled = true;
-		this->button7->Enabled = true;
-		this->button8->Enabled = true;
-		this->button9->Enabled = true;
-
-		player1 = new Player("X", 1, 0);
-		player2 = new Player("O", 0, 1);
-		board = new Board(player1, player2);
-		rules = new Rules(board);
-
-		this->button2->Text = L"";
-		this->button3->Text = L"";
-		this->button1->Text = L"";
-		this->button4->Text = L"";
-		this->button5->Text = L"";
-		this->button6->Text = L"";
-		this->button9->Text = L"";
-		this->button7->Text = L"";
-		this->button8->Text = L"";
-	}
 };
 

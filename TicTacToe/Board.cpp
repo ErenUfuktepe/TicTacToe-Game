@@ -1,48 +1,44 @@
 #include "Board.h"
 
 /*
-*  This is parameterized constructor.
+*  This is default constructor to create the board.
+*  All elements set to -1 which means empty cell.
 */
-Board::Board(Player *player1, Player *player2)
+Board::Board()
 {
-	set_Player1(player1);
-	set_Player2(player2);
+	this->matrix = new int* [3];
+	for (int i = 0; i < 3; ++i) 
+	{
+		this->matrix[i] = new int[3];
+	}
+
+	this->matrix[0][0] = -1;
+	this->matrix[0][1] = -1;
+	this->matrix[0][2] = -1;
+
+	this->matrix[1][0] = -1;
+	this->matrix[1][1] = -1;
+	this->matrix[1][2] = -1;
+
+	this->matrix[2][0] = -1;
+	this->matrix[2][1] = -1;
+	this->matrix[2][2] = -1;
 }
 
 /*
-*  This function returns the first player in the game.
+*  This function returns the symbol of the player.
 *
-*  Return : Returns Player object. 
+*  Return : X or O
 */
-Player* Board::get_Player1()
+int** Board::get_matrix()
 {
-	return player1;
+	return this->matrix;
 }
 
 /*
-*  This function returns the second player in the game.
-*
-*  Return : Returns Player object.
+*  This function sets the given value to given row and column.
 */
-Player* Board::get_Player2()
+void Board::set_matrix_element(int row, int column, int value)
 {
-	return player2;
+	this->matrix[row][column] = value;
 }
-
-/*
-*  This function sets the first player in the game.
-*/
-void Board::set_Player1(Player* player)
-{
-	this->player1 = player;
-}
-
-/*
-*  This function sets the second player in the game.
-*/
-void Board::set_Player2(Player* player)
-{
-	this->player2 = player;
-}
-
-
