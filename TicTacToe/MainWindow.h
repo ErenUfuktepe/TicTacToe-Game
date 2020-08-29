@@ -332,7 +332,6 @@ public ref class MainWindow : public System::Windows::Forms::Form
 			string x ,y; 
 			x = result[2][0];
 			y = result[2][1];
-			cout << result[2] << endl;
 			int row = std::stoi(x);
 			int column = std::stoi(y);
 			string* check = this->referee->make_move(row, column);

@@ -97,6 +97,7 @@ string* Referee::make_move(int row, int column)
 		
 		if (this->get_player2()->get_type())
 		{
+			//Computer move
 			int *move = new int[2];
 			move = find_best_move();
 			result[2] = to_string(move[0]) + to_string(move[1]);
@@ -122,6 +123,11 @@ string* Referee::make_move(int row, int column)
 	}
 }
 
+/*
+* This function is to check whether player wins the game or not.
+* To check the first player, the player parameter should be 0, 
+* and 1 is for computer or second player. 
+*/
 int Referee::is_win(int** board, int player)
 {
 	for (int i = 0; i < 3; ++i) {
@@ -151,6 +157,9 @@ int Referee::is_win(int** board, int player)
 	return 0;
 }
 
+/*
+*  This function returns 1 if there is a tie. Otherwise returns 0.
+*/
 int Referee::is_draw(int** board)
 {
 	for (int i = 0; i < 3; ++i) 
@@ -166,9 +175,9 @@ int Referee::is_draw(int** board)
 	return 1;
 }
 
-
-
-
+/*
+* Minimax algorithm implementation.
+*/
 int Referee::minimax(int** board, int depht, int player)
 {
 	if (is_win(board, 1))
@@ -219,7 +228,9 @@ int Referee::minimax(int** board, int depht, int player)
 	}
 }
 
-
+/*
+* Returns the best move for computer using minimax algorithm. 
+*/
 int* Referee::find_best_move()
 {
 	int *move = new int[2];
